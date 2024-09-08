@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0lybterxjpok"]
+
+[ext_resource type="Script" path="res://PostProcess.gd" id="1_e3giq"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_myqb5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eep4c"]
+albedo_color = Color(1, 0.282353, 1, 1)
+
+[sub_resource type="Environment" id="Environment_vv31m"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_atydm"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("1_e3giq")
+shader_path = "res://base.glsl"
+
+[sub_resource type="Compositor" id="Compositor_e8e12"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_atydm")])
+
+[node name="Main" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_myqb5")
+surface_material_override/0 = SubResource("StandardMaterial3D_eep4c")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vv31m")
+compositor = SubResource("Compositor_e8e12")
